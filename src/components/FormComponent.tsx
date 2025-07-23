@@ -1,6 +1,6 @@
 import  styled from "styled-components"
 import { StyledButton, StyledInput } from "@/components"
-import { type FormComponentProps } from "@/types"
+import {type FormComponentProps } from "@/types"
 import { pxToRem } from "@/utils"
 
 export const StyledForm = styled.form`

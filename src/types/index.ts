@@ -1,3 +1,3 @@
-//export * from './theme'
-//export * from './typographies'
-//export * from './formComponent'
+export * from './theme.d'
+export * from './typographies.d'
+export * from './formComponent.d'
