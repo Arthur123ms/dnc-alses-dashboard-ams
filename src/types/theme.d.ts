@@ -1,4 +1,3 @@
-
 export interface Theme {
     appBackground: string,
     appColor: string,
@@ -45,10 +44,3 @@ export interface Theme {
 
 
 
-
-import 'styled-components';
-
-declare module 'styled-components' {
-  
-  export type DefaultTheme = Theme
-}
