@@ -7,7 +7,7 @@
 */
 
 export function jwtExpirationDateConverter(exp: number): number {
-    const currentTime = Math.floor(Date.now() / 100)
+    const currentTime = Math.floor(Date.now() / 1000)
     const secondUntilExpiration = exp - currentTime
     const secondsInADays = 60 * 60 * 24
     const daysUntilExpiration = secondUntilExpiration / secondsInADays
