@@ -13,7 +13,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { Bar } from 'react-chartjs-2'
-import { type CustomChartProps } from '@/types'
+import type { CustomChartProps } from '@/types'
 
 ChartJs.register(
     CategoryScale,
@@ -30,7 +30,7 @@ function CustomChart(props: CustomChartProps) {
     const { data, labels, type} = props
     const theme= useTheme()
     const options = {
-        resposive: true,
+        responsive: true,
         scaleShowVerticalLines: false,
         scales: {
              x: {
