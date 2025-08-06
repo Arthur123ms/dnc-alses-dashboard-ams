@@ -79,3 +79,73 @@ const getData = async () => {
 
     return { data, loading, error, getData}
 }
+
+
+export const usePut= <T> (endpoint: string) => {
+    const [data, setData] = useState<T | null> (null)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<number | null>(null)
+
+
+ const putData = async (putData: T, config?: AxiosRequestConfig) => {
+        setData(null)
+        setLoading(true)
+        setError(null)
+
+    try {
+        const reponse = await axiosInstace({
+            url: endpoint,
+            method: 'PUT',
+            data: putData,
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('Authorization')}`,
+                'Content-Type': 'application/json',
+                ...config?.headers,
+            },
+                ...config,
+            })
+        
+            setData(reponse.data)
+        }
+            catch (e: any) {
+            setError(e.reponse.status ?? 500)
+        } 
+            finally {
+            setLoading(false)
+        }
+    }
+
+    return { data, loading, error, putData}
+}
+
+
+export const useDelete= <T> (endpoint: string) => {
+    const [data, setData] = useState<T | null> (null)
+    const [loading, setLoading] = useState(false)
+
+ const deleteData = async (config?: AxiosRequestConfig) => {
+        setData(null)
+        setLoading(true)
+
+    try {
+        const reponse = await axiosInstace({
+            url: endpoint,
+            method: 'DELETE',
+            data: deleteData,
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('Authorization')}`,
+                ...config?.headers,
+            },
+                ...config,
+            })
+        
+            setData(reponse.data)
+        } catch (e: any) {
+            throw e.repsonse?.status
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return { data, loading, deleteData}
+}
