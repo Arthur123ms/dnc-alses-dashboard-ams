@@ -32,7 +32,7 @@ function Login () {
 
     const handleMessage = (): MessageProps => {
         if(!error) {
-            return{msg: '', type: 'sucess'}
+            return{msg: '', type: 'success'}
         }
         switch (error) {
             case 401: 

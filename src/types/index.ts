@@ -11,4 +11,6 @@ export * from './starsData.d'
 export * from './theme.d'
 export * from './typographies.d'
 export * from './profileData.d'
+export * from './leadsData.d'
+
 

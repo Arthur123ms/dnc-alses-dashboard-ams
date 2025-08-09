@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link } from 'react-router-dom'
 import { AvatarList, CardComponents, CustomChart, CustomTable, Header, StyledH2, StyledH3, StyledSpan} from "@/components"
 import { Container, Grid } from "@mui/material"
 
@@ -114,18 +115,16 @@ function Home () {
                             }
                         
                         >
-                            {
-                                !highlightsLoading && highlightsData && (
-                                    <>
-                                        <StyledH2 className="mb-1">Leads contactados</StyledH2>
-                                        <StyledH3 className="mb-1" size={40} lineheight={40}>
-                                            {highlightsData[2].value}
-                                        </StyledH3>
-
-                                        <StyledSpan>
-                                            {highlightsData[2].subtitle}
-                                        </StyledSpan>
-                                    </>
+                            {!highlightsLoading && highlightsData && (
+                                <Link to='/leads'>
+                                    <StyledH2 className="mb-1">Leads contactados</StyledH2>
+                                    <StyledH3 className="mb-1" size={40} lineheight={40}>
+                                        {highlightsData[2].value}
+                                    </StyledH3>
+                                    <StyledSpan>
+                                        {highlightsData[2].subtitle}
+                                    </StyledSpan>
+                                </Link>
                             )}
                         </CardComponents>
                     </Grid>

@@ -32,13 +32,13 @@ function Profile() {
   const themeContext = useContext(AppThemeContext)
 
   const [updateMessage, setUpdateMessage] = useState<MessageProps>({
-    type: "sucess",
+    type: "success",
     msg: "",
   })
 
   const clearMessage = () => {
     setTimeout(() => {
-      setUpdateMessage({ type: "sucess", msg: "" })
+      setUpdateMessage({ type: "success", msg: "" })
     }, 3000)
   }
 
@@ -77,7 +77,7 @@ function Profile() {
     if (profileUpdateData) {
       setUpdateMessage({
         msg: "Perfil Atualizado com sucesso",
-        type: "sucess",
+        type: "success",
       })
     } else if (profileUpdateError) {
       setUpdateMessage({
