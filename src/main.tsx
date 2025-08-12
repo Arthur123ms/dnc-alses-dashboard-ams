@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { GlobalStyle } from './styles/globalStyles.ts'
 import { AppThemeProvider} from './contexts/AppThemeContext.tsx'
+import { Provider } from 'react-redux'
+import store from './redux/index.ts'
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    < AppThemeProvider>
+    <Provider store={store}>
+      <AppThemeProvider>
       <GlobalStyle />
       <App />
-    </AppThemeProvider>
-   
+      </AppThemeProvider>
+    </Provider>
   </React.StrictMode>
 )

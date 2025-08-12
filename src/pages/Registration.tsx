@@ -1,67 +1,170 @@
-import { Box, Container, Grid} from '@mui/material'
-import { BannerImage, FormComponent, Logo, StyledH1, Styledp, StyledUl } from '@/components'
-import { pxToRem } from '@/utils'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, type ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Container, Grid } from '@mui/material';
+import {
+  BannerImage,
+  FormComponent,
+  Logo,
+  StyledH1,
+  Styledp,
+  StyledUl,
+} from '@/components';
+import { pxToRem } from '@/utils';
+
+// HOOKS
+import { useFormValidation, usePost } from '@/hooks';
+import { type CreateProfileData, type InputProps } from '@/types';
+
+//REDUX
+import type { RootState } from '@/redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMessage, setProfileData } from '@/redux/slices/createProfile';
 
 
+function Registration() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { email } = useSelector((state: RootState) => state.createProfile);
+    const {
+      data,
+      loading,
+      error,
+      postData,
+    } = usePost<string, CreateProfileData>("profile/create");
 
-function Registration () {
-    return(
-        <>
-            <Box>
-                <Grid container>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={6} 
-                        sx={{ alignItems: 'center', display: 'flex', height: '100vh'}}
-                    >
-                        <Container maxWidth='sm'>
+  // FORM STEP 1
+  const step1Input: InputProps[] = [
+    { name: 'name', type: 'text', placeholder: 'Nome', required: true },
+    { name: 'email', type: 'email', placeholder: 'Email' },
+    { name: 'phone', type: 'tel', placeholder: 'Telefone', required: true },
+  ];
 
-                            
-                            <Box sx={{marginBottom: pxToRem(24)}}>
-                               <Logo height={41} width={100}/>
-                            </Box>
+  const handleStep1 = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(
+      setProfileData({
+        email: String(step1FormValues[1]),
+      })
+    );
+  };
 
-                            <Box sx={{marginBottom: pxToRem(24)}}>
-                                <StyledH1>Faça o seu cadastro</StyledH1>
-                                <Styledp>Primeiro diga quem você é.</Styledp>
-                                <StyledUl>
-                                    <li>Entre 8 e 16 caracteres;</li>
-                                    <li>Pelo menos uma letra maiúscula;</li>
-                                    <li>Pelo menos um caractere especial;</li>
-                                    <li>Pelo menos um número</li>
-                                </StyledUl>
-                            </Box>
-                            <FormComponent inputs={[
-                                {type: 'email', placeholder: 'Email'},
-                                {type: 'password', placeholder: 'Senha'}
-                            ]} 
-                                                      
-                            buttons={[
-                                { className: 'primary', type: 'submit', children: 'Login'}
-                            ]}
+  const {
+    formValues: step1FormValues,
+    formValid: step1FormValid,
+    handleChange: step1FormHandleChange,
+  } = useFormValidation(step1Input);
 
-                            message={{
-                                msg: 'Erro!!',
-                                type: 'error'
-                            }}
-                        />
-                          
-                        </Container>
-                    </Grid>
-            
-                    <Grid
-                        item 
-                        sm={6} 
-                        sx={{display: { xs: 'none', sm: 'block'}}}
-                    >
-                        <BannerImage />
-                    </Grid>
-                </Grid>
-            </Box>
+  // FORM STEP 2
+  const step2Input: InputProps[] = [
+    { type: 'password', placeholder: 'Senha' },
+  ];
+
+  const handleStep2 = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await postData({
+        name: String(step1FormValues[0]),
+        email: String(step1FormValues[1]),
+        phone: String(step1FormValues[2]),
+        password: String(step2FormValues[0]),
+
+
+    })
+  };
+
+  const {
+    formValues: step2FormValues,
+    formValid: step2FormValid,
+    handleChange: step2FormHandleChange,
+  } = useFormValidation(step2Input);
+
+  const handleStepInputs = email ? step2Input : step1Input;
+
+
+  useEffect(() => {
+    if(data !== null) {
+        dispatch(setMessage('Usuário criado com sucesso.'))
+        navigate('/')
+    } else if (error) {
+        alert(
+            `Não foi possível a operação. Entre em contato com o nosso suporte (${error}).`
+        )
+    }
+  }, [data, error, navigate])
+
+  return (
+    <Box>
+      <Grid container>
+      
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          sx={{ alignItems: 'center', display: 'flex', height: '100vh' }}
+        >
+          <Container maxWidth="sm">
         
-        </>
-    )
+            <Box sx={{ marginBottom: pxToRem(24) }}>
+              <Logo height={41} width={100} />
+            </Box>
+
+            <Box sx={{ marginBottom: pxToRem(24) }}>
+              <StyledH1>
+                {email ? 'Defina sua senha' : 'Faça seu cadastro'}
+              </StyledH1>
+              <Styledp>
+                {email
+                  ? 'Sua senha deve ter:'
+                  : 'Primeiro, diga-nos quem você é'}
+              </Styledp>
+
+              {email && (
+                <StyledUl>
+                  <li>Entre 8 e 16 caracteres;</li>
+                  <li>Pelo menos uma letra maiúscula;</li>
+                  <li>Pelo menos um caractere especial;</li>
+                  <li>Pelo menos um número</li>
+                </StyledUl>
+              )}
+            </Box>
+
+            {/* Formulário */}
+            <FormComponent
+              inputs={handleStepInputs.map((input, index) => ({
+                type: input.type,
+                placeholder: input.placeholder,
+                value: email
+                  ? step2FormValues[index] || ''
+                  : step1FormValues[index] || '',
+                onChange: (e: ChangeEvent<HTMLInputElement>) =>
+                  email
+                    ? step2FormHandleChange(index, (e.target as HTMLInputElement).value)
+                    : step1FormHandleChange(index, (e.target as HTMLInputElement).value)
+              }))}
+              buttons={[
+                { 
+                    className: 'primary', 
+                    disabled: email ? !step2FormValid || loading : !step1FormValid,
+                    onClick: email ? handleStep2 : handleStep1,
+                    type: 'submit', 
+                    children: email ? 'Enviar' : 'Próximo',
+                },
+              ]}
+            />
+          </Container>
+        </Grid>
+
+        {/* Lado direito */}
+        <Grid
+          item
+          sm={6}
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        >
+          <BannerImage />
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
 
-export default Registration
+export default Registration;
