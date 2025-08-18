@@ -9,7 +9,7 @@
 export function highlightsTextConverter(text: string): string {
     switch (text) {
         case 'alert': 
-            return ' *Meta loge de ser batida'
+            return '* Meta longe de ser batida'
         case 'sucess': 
             return '* A meta foi batida com sucesso'
         case 'warning': 
