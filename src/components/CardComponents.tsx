@@ -15,8 +15,8 @@ export const CardComponents = styled.div`
     }
     
     &.sucess {
-        background-color: ${(props) => props.theme.card.sucess};
-        border-color:  ${(props) => props.theme.card.sucess};
+        background-color: ${(props) => props.theme.card.success};
+        border-color:  ${(props) => props.theme.card.success};
     }
 
     &.warning {
