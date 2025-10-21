@@ -1,69 +1,93 @@
-# React + TypeScript + Vite
+# ⚛️ DNC ALSes Dashboard AMS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/react-18.2.0-61DAFB?logo=react)
+![Vite](https://img.shields.io/badge/vite-5.0.0-646CFF?logo=vite)
+![TypeScript](https://img.shields.io/badge/typescript-4.9.5-3178C6?logo=typescript)
+![Status](https://img.shields.io/badge/status-finalizado-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-Currently, two official plugins are available:
+Dashboard simples para visualização de dados, desenvolvida com **React**, **TypeScript** e **Vite**. Ideal para aplicações que exigem performance e escalabilidade.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📂 Estrutura do Projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+├── public/ # Arquivos públicos
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+├── src/ # Código-fonte principal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+├── .eslintrc.cjs # Configuração do ESLint
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+├── .gitignore # Arquivos a serem ignorados pelo Git
+
+├── .prettierignore # Arquivos a serem ignorados pelo Prettier
+
+├── .prettierrc # Configuração do Prettier
+
+├── package.json # Dependências e scripts
+
+├── tsconfig.app.json # Configuração do TypeScript para a aplicação
+
+├── tsconfig.json # Configuração geral do TypeScript
+
+├── tsconfig.node.json # Configuração do TypeScript para o Node.js
+
+├── vite.config.ts # Configuração do Vite
+
+└── vercel.json # Configuração para deploy no Vercel
+
+
+
+---
+
+## ⚙️ Como executar o projeto
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/Arthur123ms/dnc-alses-dashboard-ams
+   cd dnc-alses-dashboard-ams
+
+2. Instale as dependências:
+   ```bash
+   npm install
+
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+
+4. Acesse no navegador:
+   ```bash
+   http://localhost:5173
+
+
+  ## ☁️ Deploy
+
+Você pode fazer deploy deste projeto facilmente com:
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://www.netlify.com/)
+
+### Exemplo (com Vercel):
+
+1. Acesse [vercel.com](https://vercel.com/)
+2. Clique em **New Project**
+3. Selecione este repositório
+4. Aceite as configurações padrão e clique em **Deploy**
+
+## 📝 Licença
+
+Distribuído sob a licença MIT. Consulte `LICENSE` para mais informações.
+
+
+
